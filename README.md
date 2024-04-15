@@ -2,8 +2,6 @@
 
 After reading some of Hal Elrod's [The Miracle Morning](https://miraclemorning.com/), I realized that doing a few short timed activities in succession would be much easier and more enjoyable if I could be fully present and didn't have to continually watch a clock, routinely reset a basic timer, or find and repurpose a pomodoro timer. Hence, I built this stopwatch as a learning project and solution to my issue.
 
-_Note: I noticed that Hal offers an app. Frankly, it seems too feature-rich and non-minimalistic for me. All I'm looking for is some automatic support in keeping time._
-
 StopWatch:
 
 - **encourages a focus on how much time as passed in total, rather than how much time is left for an activity**
