@@ -5,16 +5,17 @@ After reading some of Hal Elrod's [The Miracle Morning](https://miraclemorning.c
 _Note: I noticed that Hal offers an app. Frankly, it seems too feature-rich and non-minimalistic for me. All I'm looking for is some automatic support in keeping time._
 
 StopWatch:
-**- encourages a focus on how much time as passed in total, rather than how much time is left for an activity**
-**- encourages the user to fully immerse in an activity, rather than watching the clock**
+
+- **encourages a focus on how much time as passed in total, rather than how much time is left for an activity**
+- **encourages the user to fully immerse in an activity, rather than watching the clock**
 
 ## Tech/Frameworks:
 
-JavaScript
-[Node.js](https://nodejs.org/)
-[Vite](https://vitejs.dev/)
-[React](https://react.dev/)
-[react-router-dom](https://www.npmjs.com/package/react-router-dom)
+JavaScript  
+[Node.js](https://nodejs.org/)  
+[Vite](https://vitejs.dev/)  
+[React](https://react.dev/)  
+[react-router-dom](https://www.npmjs.com/package/react-router-dom)  
 [TailwindCss](https://tailwindcss.com/)
 
 ## How to Use
@@ -25,8 +26,8 @@ JavaScript
 
 ## Credits
 
-Thanks to [Jack Herrington](https://www.youtube.com/watch?v=j8s01ThR7bQ) for helping me see how easy it could be to make a stopwatch.
-Thanks to Hal Elrod for inspiring this project.
-Thanks to [React](https://react.dev/learn) for having practical learning/documentation.
+Thanks to [Jack Herrington](https://www.youtube.com/watch?v=j8s01ThR7bQ) for helping me see how easy it could be to make a stopwatch.  
+Thanks to Hal Elrod for inspiring this project.  
+Thanks to [React](https://react.dev/learn) for having practical learning resources/documentation.
 
 **David Schraedel** | **2024**
