@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import cheer from "./assets/audio/ConvocationCheer_16.wav";
-import trumpet from "./assets/audio/Mark'sTrumpet_3.wav";
+import cheer from "./assets/audio/Cheer_16.wav";
+import trumpet from "./assets/audio/Trumpet_3.wav";
 import bowl from "./assets/audio/MetalBowl_1.wav";
 
 function Stopwatch() {
