@@ -65,7 +65,7 @@ function Stopwatch() {
 
   return (
     <>
-      <div className="flex gap-1 sm:gap-0 justify-center items-end sm:text-3xl text-stone-50 bg-stone-950 md:text-4xl lg:text-5xl pt-12 pb-14 sm:pt-8 sm:pb-10 px-2 sm:mx-10 md:mx-24 lg:mx-40 xl:mx-52 rounded-md selection:bg-stone-700 selection:text-green-500">
+      <div className="flex gap-1 sm:gap-0 justify-center items-end sm:text-3xl text-stone-50 bg-stone-950 md:text-4xl lg:text-5xl pt-12 pb-14 sm:pt-8 sm:pb-10 px-2 sm:mx-10 md:mx-24 lg:mx-40 xl:mx-52 rounded-md selection:bg-stone-700 selection:text-green-500 shadow-md">
         <div className={`flex-1 ${hours === 0 ? "text-stone-800" : "text-stone-300"}`}>
           {hours.toString().padStart(2, "0")}
         </div>
@@ -95,7 +95,7 @@ function Stopwatch() {
         </div>
       </div>
 
-      <div className="flex flex-col pt-16 pb-20 sm:px-20 md:px-40">
+      <div className="flex flex-col pt-12 sm:pt-16 pb-20 sm:px-20 md:px-40">
         <div className="basis-1/2 pb-2">
           <button
             className={`text-5xl hover:scale-110 ease-out duration-75 px-8 py-3 border-4  ${
@@ -109,18 +109,20 @@ function Stopwatch() {
         </div>
         <div className="basis-1/2 pt-10">
           <button
-            className="ease-out duration-75 hover:origin-center hover:rotate-6 px-6 py-2  border-4 border-stone-200 bg-stone-100 text-stone-700 hover:bg-stone-800 hover:text-stone-50 hover:border-stone-300 text-4xl rounded-md font-semibold shadow-lg select-none"
+            className="ease-out duration-75 hover:origin-center hover:rotate-6 px-6 py-2  border-4 border-stone-200 bg-stone-100 text-stone-700 hover:bg-stone-800 hover:text-stone-50 hover:border-stone-300 text-4xl rounded-md font-semibold shadow-lg select-none hover:opacity-90"
             onClick={resetTime}>
             Reset
           </button>
         </div>
       </div>
 
-      <div className="flex flex-col pt-2 pb-24 mb-40 sm:px-10 md:px-30 mx-5 sm:mx-20 md:mx-40 lg:mx-80 xl:mx-[28rem]">
-        <h2 className="text-4xl p-5 pb-6 font-bold text-stone-300 select-none">Settings</h2>
+      <div className="flex flex-col pt-2 pb-24 mb-20 sm:px-10 md:px-30 mx-5 sm:mx-20 md:mx-40 lg:mx-80 xl:mx-[28rem]">
         <div className="flex flex-col justify-center">
           <div className=" py-3 bg-stone-700 bg-opacity-40 text-stone-100 text-2xl rounded-md shadow-lg select-none">
-            <h3 className="mt-6 select-none">Interval in Minutes</h3>
+            <h2 className="text-4xl px-5 py-3 opacity-50 font-bold text-stone-300 select-none">
+              Settings
+            </h2>
+            <h3 className="mt-5 select-none">Interval in Minutes</h3>
             <input
               type="number"
               min={0}
@@ -133,7 +135,7 @@ function Stopwatch() {
             <h3 className="mt-6 select-none">Sound</h3>
             <div className="flex items-center justify-center my-4 ">
               <label htmlFor="soundSelect" className="sr-only">
-                Currency
+                Sound
               </label>
               <select
                 onChange={(e) => setSound(e.target.value)}
