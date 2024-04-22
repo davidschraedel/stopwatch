@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { soundList } from "./assets";
 
 function Stopwatch() {
-  console.log(soundList);
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [minuteInterval, setMinuteInterval] = useState(0);
@@ -11,15 +10,15 @@ function Stopwatch() {
   const [volume, setVolume] = useState(0.24);
   const [muted, setMuted] = useState(false);
 
-  const formatVolume = (val) => {
-    let fixedVal = val.toFixed(2);
-    let wholes = fixedVal.toString().split(".")[0];
-    let fractionals = fixedVal.toString().split(".")[1];
-    if (wholes.length < 2) wholes = "0" + wholes;
-    let formattedString = wholes + "." + fractionals;
+  // const formatVolume = (val) => {
+  //   let fixedVal = val.toFixed(2);
+  //   let wholes = fixedVal.toString().split(".")[0];
+  //   let fractionals = fixedVal.toString().split(".")[1];
+  //   if (wholes.length < 2) wholes = "0" + wholes;
+  //   let formattedString = wholes + "." + fractionals;
 
-    return formattedString;
-  };
+  //   return formattedString;
+  // };
 
   useEffect(() => {
     let intervalId;
@@ -68,8 +67,8 @@ function Stopwatch() {
 
   return (
     <>
-      <div className="flex gap-1 sm:gap-0 justify-center items-end sm:text-3xl text-stone-50 bg-stone-950 md:text-4xl lg:text-5xl pt-12 pb-14 sm:pt-8 sm:pb-10 px-2 sm:mx-10 md:mx-24 lg:mx-40 xl:mx-52 rounded-[3rem] selection:bg-stone-700 selection:text-green-500 shadow-md">
-        <div className={`flex-1 ${hours === 0 ? "text-stone-800" : "text-stone-300"}`}>
+      <div className="flex gap-1 sm:gap-0 justify-center items-end sm:text-3xl text-stone-50 bg-stone-950 md:text-4xl lg:text-5xl pt-14 pb-16 sm:pt-10 sm:pb-12 px-2 sm:mx-10 md:mx-24 lg:mx-40 xl:mx-52 rounded-[3rem] selection:bg-stone-700 selection:text-green-500 shadow-md">
+        <div className={`flex-1 ${hours === 0 ? "text-stone-700" : "text-stone-300"}`}>
           {hours.toString().padStart(2, "0")}
         </div>
         <div className="hidden sm:block w-5 text-4xl md:text-5xl lg:text-6xl text-stone-600 select-none">
@@ -77,7 +76,7 @@ function Stopwatch() {
         </div>
         <div
           className={`flex-1 ${
-            minutes === 0 ? "text-stone-800" : ""
+            minutes === 0 ? "text-stone-700" : ""
           } text-6xl sm:text-8xl md:text-[7rem] lg:text-[10rem]`}>
           {minutes.toString().padStart(2, "0")}
         </div>
@@ -86,14 +85,14 @@ function Stopwatch() {
         </div>
         <div
           className={`flex-1 ${
-            seconds === 0 ? "text-stone-800" : ""
+            seconds === 0 ? "text-stone-700" : ""
           } text-6xl sm:text-8xl md:text-[7rem] lg:text-[10rem] `}>
           {seconds.toString().padStart(2, "0")}
         </div>
         <div className="hidden sm:block w-5 text-4xl md:text-5xl lg:text-6xl text-stone-600 select-none">
           :
         </div>
-        <div className={`flex-1  ${milliseconds === 0 ? "text-stone-800" : "text-stone-300"} `}>
+        <div className={`flex-1  ${milliseconds === 0 ? "text-stone-700" : "text-stone-300"} `}>
           {milliseconds.toString().padStart(2, "0")}
         </div>
       </div>
@@ -122,10 +121,12 @@ function Stopwatch() {
       <div className="flex flex-col pt-2 mb-20 sm:px-10 md:px-30 mx-5 sm:mx-20 md:mx-40 lg:mx-80 xl:mx-[28rem]">
         <div className="flex flex-col justify-center">
           <div className=" py-3 bg-stone-700 bg-opacity-40 text-stone-100 text-2xl rounded-md shadow-lg select-none">
-            <h2 className="text-4xl px-5 py-3 opacity-50 font-bold text-stone-300 select-none">
+            <h2 className="text-4xl px-5 py-3 mt-5 opacity-50 font-bold text-stone-300 select-none">
               Settings
             </h2>
-            <h3 className="mt-5 select-none text-stone-300">Interval in Minutes</h3>
+            <h3 className="mt-5 select-none text-stone-300 font-semibold opacity-90">
+              Interval in Minutes
+            </h3>
             <input
               type="number"
               min={0}
@@ -135,7 +136,7 @@ function Stopwatch() {
               onChange={(e) => handleSoundInterval(e)}
               className="text-2xl w-32 focus:scale-105 ease-out duration-300 px-2 py-2 my-5 border-4 focus-within:ring-4 focus:ring-offset-2 outline-none focus:ring-yellow-800 border-stone-200 bg-stone-50 text-stone-700 rounded-2xl font-semibold shadow-lg text-center"
             />
-            <h3 className="mt-6 select-none text-stone-300">Sound</h3>
+            <h3 className="mt-6 select-none text-stone-300 font-semibold opacity-90">Sound</h3>
             <div className="flex items-center justify-center my-4 pb-6 ">
               <label htmlFor="soundSelect" className="sr-only">
                 Sound
@@ -157,11 +158,11 @@ function Stopwatch() {
             </div>
 
             <div className="mt-6 py-2 flex justify-center space-x-2 mx-auto">
-              <h3 className=" select-none text-stone-300 font-semibold ">Volume:</h3>
+              <h3 className=" select-none text-stone-300 font-semibold opacity-90">Volume</h3>
 
-              <div className=" select-none bg-stone-700 bg-opacity-30 px-2 rounded-full w-24 text-center text-stone-300 font-bold">
+              {/* <div className=" select-none bg-stone-700 bg-opacity-30 px-2 rounded-full w-24 text-center text-stone-300 font-bold">
                 {muted ? formatVolume(0) : formatVolume(volume)}
-              </div>
+              </div> */}
             </div>
             <div className="py-2">
               <input
@@ -180,7 +181,7 @@ function Stopwatch() {
               {/* <div className="w-1/2 my-auto">
                 <span className="px-2">{muted ? 0 : volume}</span>
               </div> */}
-              <div className="w-full">
+              <div className="w-full pb-5">
                 <button
                   className={`py-1.5 border-4 mx-auto px-3 ease-out duration-300 outline-none  border-stone-200 hover:border-stone-400 bg-stone-50 rounded-full shadow-lg text-xl text-center
                 ${muted ? "line-through text-stone-400" : "text-stone-600"}`}
