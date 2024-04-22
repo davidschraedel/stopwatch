@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { soundList } from "./assets";
 
 function Stopwatch() {
+  console.log(soundList);
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [minuteInterval, setMinuteInterval] = useState(0);
