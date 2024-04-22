@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import cheer from "./assets/audio/Cheer_16.wav";
-import trumpet from "./assets/audio/Trumpet_3.wav";
-import bowl from "./assets/audio/MetalBowl_1.wav";
+import { soundList } from "./assets";
 
 function Stopwatch() {
   const [time, setTime] = useState(0);
@@ -9,23 +7,18 @@ function Stopwatch() {
   const [minuteInterval, setMinuteInterval] = useState(0);
   const [sound, setSound] = useState(null);
 
-  const soundList = [
-    {
-      id: 1,
-      name: "Cheer",
-      path: cheer,
-    },
-    {
-      id: 2,
-      name: "Bowl",
-      path: bowl,
-    },
-    {
-      id: 3,
-      name: "Trumpet",
-      path: trumpet,
-    },
-  ];
+  const [volume, setVolume] = useState(0.24);
+  const [muted, setMuted] = useState(false);
+
+  const formatVolume = (val) => {
+    let fixedVal = val.toFixed(2);
+    let wholes = fixedVal.toString().split(".")[0];
+    let fractionals = fixedVal.toString().split(".")[1];
+    if (wholes.length < 2) wholes = "0" + wholes;
+    let formattedString = wholes + "." + fractionals;
+
+    return formattedString;
+  };
 
   useEffect(() => {
     let intervalId;
@@ -52,9 +45,18 @@ function Stopwatch() {
     setTime(0);
   };
 
-  function playSound() {
+  let handleVolume = (val) => {
+    setVolume(val);
+    let vol = val;
+    return playSound(vol);
+  };
+
+  function playSound(vol) {
     if (sound != null) {
+      if (muted) return;
+
       const audio = new Audio(sound);
+      typeof vol !== "undefined" ? (audio.volume = vol) : (audio.volume = volume);
       audio.play();
     }
   }
@@ -65,7 +67,7 @@ function Stopwatch() {
 
   return (
     <>
-      <div className="flex gap-1 sm:gap-0 justify-center items-end sm:text-3xl text-stone-50 bg-stone-950 md:text-4xl lg:text-5xl pt-12 pb-14 sm:pt-8 sm:pb-10 px-2 sm:mx-10 md:mx-24 lg:mx-40 xl:mx-52 rounded-md selection:bg-stone-700 selection:text-green-500 shadow-md">
+      <div className="flex gap-1 sm:gap-0 justify-center items-end sm:text-3xl text-stone-50 bg-stone-950 md:text-4xl lg:text-5xl pt-12 pb-14 sm:pt-8 sm:pb-10 px-2 sm:mx-10 md:mx-24 lg:mx-40 xl:mx-52 rounded-[3rem] selection:bg-stone-700 selection:text-green-500 shadow-md">
         <div className={`flex-1 ${hours === 0 ? "text-stone-800" : "text-stone-300"}`}>
           {hours.toString().padStart(2, "0")}
         </div>
@@ -100,8 +102,8 @@ function Stopwatch() {
           <button
             className={`text-5xl hover:scale-110 ease-out duration-75 px-8 py-3 border-4  ${
               isRunning
-                ? "border-amber-800 bg-amber-100 text-amber-700 hover:border-amber-200  hover:bg-amber-100 hover:text-amber-500 animate-pulse"
-                : "border-green-600 bg-green-50 text-green-700 hover:border-green-200  hover:bg-green-100 hover:text-green-600"
+                ? "border-amber-600 bg-amber-100 text-amber-600 hover:border-amber-200  hover:bg-amber-100 hover:text-amber-500 animate-pulse"
+                : "border-green-600 bg-green-50 text-green-600 hover:border-green-200  hover:bg-green-100 hover:text-green-600"
             } rounded-md font-semibold pb-3.5 shadow-lg select-none`}
             onClick={startStopTime}>
             {isRunning ? "Stop" : "Start"}
@@ -116,13 +118,13 @@ function Stopwatch() {
         </div>
       </div>
 
-      <div className="flex flex-col pt-2 pb-24 mb-20 sm:px-10 md:px-30 mx-5 sm:mx-20 md:mx-40 lg:mx-80 xl:mx-[28rem]">
+      <div className="flex flex-col pt-2 mb-20 sm:px-10 md:px-30 mx-5 sm:mx-20 md:mx-40 lg:mx-80 xl:mx-[28rem]">
         <div className="flex flex-col justify-center">
           <div className=" py-3 bg-stone-700 bg-opacity-40 text-stone-100 text-2xl rounded-md shadow-lg select-none">
             <h2 className="text-4xl px-5 py-3 opacity-50 font-bold text-stone-300 select-none">
               Settings
             </h2>
-            <h3 className="mt-5 select-none">Interval in Minutes</h3>
+            <h3 className="mt-5 select-none text-stone-300">Interval in Minutes</h3>
             <input
               type="number"
               min={0}
@@ -132,8 +134,8 @@ function Stopwatch() {
               onChange={(e) => handleSoundInterval(e)}
               className="text-2xl w-32 focus:scale-105 ease-out duration-300 px-2 py-2 my-5 border-4 focus-within:ring-4 focus:ring-offset-2 outline-none focus:ring-yellow-800 border-stone-200 bg-stone-50 text-stone-700 rounded-2xl font-semibold shadow-lg text-center"
             />
-            <h3 className="mt-6 select-none">Sound</h3>
-            <div className="flex items-center justify-center my-4 ">
+            <h3 className="mt-6 select-none text-stone-300">Sound</h3>
+            <div className="flex items-center justify-center my-4 pb-6 ">
               <label htmlFor="soundSelect" className="sr-only">
                 Sound
               </label>
@@ -141,7 +143,7 @@ function Stopwatch() {
                 onChange={(e) => setSound(e.target.value)}
                 id="soundSelect"
                 name="soundSelect"
-                className="appearance-none ease-in-out duration-300 rounded-2xl py-2 px-7 text-center select-none text-stone-600 focus:ring-4 focus:ring-inset focus:ring-indigo-300 outline-none focus:scale-105 ">
+                className="appearance-none  ease-in-out duration-300 rounded-2xl py-2 px-7 text-center select-none text-stone-600 focus:ring-4 focus:ring-inset focus:ring-indigo-300 outline-none focus:scale-105 ">
                 <option value={null}>None</option>
                 {soundList.map((sound) => {
                   return (
@@ -151,6 +153,40 @@ function Stopwatch() {
                   );
                 })}
               </select>
+            </div>
+
+            <div className="mt-6 py-2 flex justify-center space-x-2 mx-auto">
+              <h3 className=" select-none text-stone-300 font-semibold ">Volume:</h3>
+
+              <div className=" select-none bg-stone-700 bg-opacity-30 px-2 rounded-full w-24 text-center text-stone-300 font-bold">
+                {muted ? formatVolume(0) : formatVolume(volume)}
+              </div>
+            </div>
+            <div className="py-2">
+              <input
+                className="w-2/3 my-auto cursor-pointer accent-stone-300 outline-none ring-0 bg-transparent mx-auto ease-out duration-300 "
+                type="range"
+                min={0}
+                max={0.5}
+                step={0.02}
+                value={muted ? 0 : volume}
+                onInput={(event) => {
+                  handleVolume(event.target.valueAsNumber);
+                }}
+              />
+            </div>
+            <div className="py-2 flex mx-2">
+              {/* <div className="w-1/2 my-auto">
+                <span className="px-2">{muted ? 0 : volume}</span>
+              </div> */}
+              <div className="w-full">
+                <button
+                  className={`py-1.5 border-4 mx-auto px-3 ease-out duration-300 outline-none  border-stone-200 hover:border-stone-400 bg-stone-50 rounded-full shadow-lg text-xl text-center
+                ${muted ? "line-through text-stone-400" : "text-stone-600"}`}
+                  onClick={() => setMuted((m) => !m)}>
+                  Mute
+                </button>
+              </div>
             </div>
           </div>
         </div>
