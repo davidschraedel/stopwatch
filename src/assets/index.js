@@ -47,7 +47,8 @@ const soundList = [];
 for (let i = 0; i < importList.length; i++) {
   soundList.push({
     id: i + 1,
-    name: importList[i].split("/").slice(-1).toString().split(".")[0].replace("%20", " "),
+    name: importList[i],
+    // name: importList[i].split("/").slice(-1).toString().split(".")[0].replace("%20", " "),
     path: importList[i],
   });
 }
