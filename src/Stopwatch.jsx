@@ -10,15 +10,32 @@ function Stopwatch() {
   const [volume, setVolume] = useState(0.24);
   const [muted, setMuted] = useState(false);
 
-  // const formatVolume = (val) => {
-  //   let fixedVal = val.toFixed(2);
-  //   let wholes = fixedVal.toString().split(".")[0];
-  //   let fractionals = fixedVal.toString().split(".")[1];
-  //   if (wholes.length < 2) wholes = "0" + wholes;
-  //   let formattedString = wholes + "." + fractionals;
+  const [wakeLock, setWakeLock] = useState(null);
 
-  //   return formattedString;
-  // };
+  const acquireLock = async () => {
+    try {
+      setWakeLock(await navigator.wakeLock.request("screen"));
+    } catch (err) {
+      console.log(`${err.name}, ${err.message}`);
+    }
+  };
+  const releaseLock = () => {
+    if (wakeLock) {
+      wakeLock.release().then(() => {
+        setWakeLock(null);
+      });
+    }
+  };
+
+  function handleVisibility() {
+    if (document.hidden) {
+      if (wakeLock !== null) {
+        releaseLock();
+        setIsRunning(false);
+      }
+      document.removeEventListener("visibilitychange", handleVisibility);
+    }
+  }
 
   useEffect(() => {
     let intervalId;
@@ -32,17 +49,24 @@ function Stopwatch() {
     return () => clearInterval(intervalId);
   }, [isRunning, time]);
 
+  document.addEventListener("visibilitychange", handleVisibility);
+
   const hours = Math.floor(time / 360000);
   const minutes = Math.floor((time % 360000) / 6000);
   const seconds = Math.floor((time % 6000) / 100);
   const milliseconds = time % 100;
 
-  const startStopTime = () => {
+  const startStopTime = (e) => {
     setIsRunning(!isRunning);
+    if (e) {
+      let textBeforeChange = e.target.innerText;
+      textBeforeChange === "Start" ? acquireLock() : releaseLock();
+    }
   };
   const resetTime = () => {
     setIsRunning(false);
     setTime(0);
+    releaseLock();
   };
 
   let handleVolume = (val) => {
@@ -105,7 +129,7 @@ function Stopwatch() {
                 ? "border-amber-600 bg-amber-100 text-amber-600 hover:border-amber-200  hover:bg-amber-100 hover:text-amber-500 animate-pulse"
                 : "border-green-600 bg-green-50 text-green-600 hover:border-green-200  hover:bg-green-100 hover:text-green-600"
             } rounded-md font-semibold pb-3.5 shadow-lg select-none`}
-            onClick={startStopTime}>
+            onClick={(e) => startStopTime(e)}>
             {isRunning ? "Stop" : "Start"}
           </button>
         </div>
@@ -134,6 +158,7 @@ function Stopwatch() {
               step={1}
               onWheel={(e) => e.target.blur()}
               onChange={(e) => handleSoundInterval(e)}
+              id="minutes"
               className="text-2xl w-32 focus:scale-105 ease-out duration-300 px-2 py-2 my-5 border-4 focus-within:ring-4 focus:ring-offset-2 outline-none focus:ring-yellow-800 border-stone-200 bg-stone-50 text-stone-700 rounded-2xl font-semibold shadow-lg text-center"
             />
             <h3 className="mt-6 select-none text-stone-300 font-semibold opacity-90">Sound</h3>
@@ -175,6 +200,7 @@ function Stopwatch() {
                 onInput={(event) => {
                   handleVolume(event.target.valueAsNumber);
                 }}
+                id="volume"
               />
             </div>
             <div className="py-2 flex mx-2">
