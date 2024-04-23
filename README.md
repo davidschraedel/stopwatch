@@ -1,4 +1,4 @@
-# StopWatch 1.1
+# StopWatch 1.1.1
 
 After reading some of Hal Elrod's [The Miracle Morning](https://miraclemorning.com/), I realized that doing a few short, timed activities in succession would be more easy and enjoyable if I could be fully present and didn't have to continually watch a clock, routinely reset a count-down timer, or find and repurpose a pomodoro timer. I built this stopwatch as a learning project and solution to my issue.
 
@@ -22,6 +22,7 @@ JavaScript
 - Choose a sound to be played each interval from the sound options input. If no sound is selected, none will be played.
 - Adjust audio volume for sounds, if needed.
 - Press "Start".
+- Screen will stay awake while timer is running and the page is currently active/focused.
 
 ## Credits
 
