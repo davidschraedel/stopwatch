@@ -51,16 +51,16 @@ function Stopwatch() {
     //   clearInterval(timer);
     // }
 
+    console.log(
+      (Math.round((elapsedTime / (1000 * 60)) * 10000) / 10000).toFixed(4) % minuteInterval
+    );
+
     if (
       Math.floor((elapsedTime / (1000 * 60)) % 60) > 0 &&
       (((Math.round((elapsedTime / (1000 * 60)) * 10000) / 10000).toFixed(4) % minuteInterval >
-        0.9998 &&
+        0.0 &&
         (Math.round((elapsedTime / (1000 * 60)) * 10000) / 10000).toFixed(4) % minuteInterval <
-          1) ||
-        ((Math.round((elapsedTime / (1000 * 60)) * 10000) / 10000).toFixed(4) % minuteInterval >
-          0.0 &&
-          (Math.round((elapsedTime / (1000 * 60)) * 10000) / 10000).toFixed(4) % minuteInterval <
-            0.0002) ||
+          0.0004) ||
         (Math.round((elapsedTime / (1000 * 60)) * 10000) / 10000).toFixed(4) % minuteInterval ===
           0.0)
     ) {
