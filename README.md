@@ -26,8 +26,7 @@ JavaScript
 
 ## Credits
 
-Thanks to [Jack Herrington](https://www.youtube.com/watch?v=j8s01ThR7bQ) for helping me see how easy it could be to make a stopwatch.  
-Thanks to Hal Elrod for inspiring this project.  
+Thank you [Jack Herrington](https://www.youtube.com/watch?v=j8s01ThR7bQ) for making it look easy.
 Thanks to [React](https://react.dev/learn) for having practical learning resources/documentation.
 
 **David Schraedel** | **2024**

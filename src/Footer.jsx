@@ -9,7 +9,7 @@ function Footer() {
 
   return (
     <>
-      <div className="pb-8 pt-4 text-center font-semibold rounded-md mx-20 md:mx-28 lg:mx-48 xl:mx-72 sm:opacity-50 sm:hover:opacity-100 sm:ease-in-out sm:duration-300">
+      <div className="pb-8 pt-4 text-center font-semibold rounded-md mx-auto md:mx-28 lg:mx-48 xl:mx-72 sm:opacity-50 sm:hover:opacity-100 sm:ease-in-out sm:duration-300">
         <div className="hidden sm:block mx-auto max-w-7xl my-6 px-2 sm:px-6 lg:px-8 bg-stone-100 bg-opacity-80 rounded-md shadow-2xl w-5/6 md:w-4/6 lg:w-3/6">
           <div className="flex h-16 items-center justify-center">
             <div className="flex flex-1 justify-center sm:items-stretch ">
@@ -34,7 +34,7 @@ function Footer() {
           </div>
         </div>
 
-        <div className="block sm:hidden mx-auto max-w-7xl pb-6 px-2 sm:px-6 lg:px-8 ">
+        <div className="block sm:hidden mx-auto max-w-7xl pb-6 sm:px-6 lg:px-8 ">
           <div className="mt-4 flex flex-1 justify-center">
             <div className="w-full flex flex-col items-center justify-center">
               <Link
