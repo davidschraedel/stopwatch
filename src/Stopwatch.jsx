@@ -51,10 +51,6 @@ function Stopwatch() {
     //   clearInterval(timer);
     // }
 
-    console.log(
-      (Math.round((elapsedTime / (1000 * 60)) * 10000) / 10000).toFixed(4) % minuteInterval
-    );
-
     if (
       Math.floor((elapsedTime / (1000 * 60)) % 60) > 0 &&
       (((Math.round((elapsedTime / (1000 * 60)) * 10000) / 10000).toFixed(4) % minuteInterval >
@@ -64,7 +60,6 @@ function Stopwatch() {
         (Math.round((elapsedTime / (1000 * 60)) * 10000) / 10000).toFixed(4) % minuteInterval ===
           0.0)
     ) {
-      console.log("SSSSOUNDDDDD!!!!!!", Math.floor((elapsedTime / (1000 * 60)) % 60));
       playSound();
     }
 
