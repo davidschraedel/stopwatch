@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { soundList } from "./assets";
 
 function Stopwatch() {
-  const [time, setTime] = useState(0);
+  const [startTime, setStartTime] = useState(null);
+  const [elapsedTime, setElapsedTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
+
   const [minuteInterval, setMinuteInterval] = useState(0);
   const [sound, setSound] = useState(null);
 
@@ -11,6 +13,8 @@ function Stopwatch() {
   const [muted, setMuted] = useState(false);
 
   const [wakeLock, setWakeLock] = useState(null);
+
+  const intervalRef = useRef(0);
 
   const acquireLock = async () => {
     try {
@@ -38,40 +42,76 @@ function Stopwatch() {
   }
 
   useEffect(() => {
-    let intervalId;
     if (isRunning) {
-      intervalId = setInterval(() => setTime(time + 1), 10);
+      intervalRef.current = setInterval(() => {
+        setElapsedTime(Date.now() - startTime);
+      }, 10);
     }
-    if (Math.floor((time % 360000) / 6000 > 0) && ((time % 360000) / 6000) % minuteInterval === 0) {
+    // else {
+    //   clearInterval(timer);
+    // }
+
+    console.log(
+      (Math.round((elapsedTime / (1000 * 60)) * 10000) / 10000).toFixed(4) % minuteInterval
+    );
+
+    if (
+      Math.floor((elapsedTime / (1000 * 60)) % 60) > 0 &&
+      (((Math.round((elapsedTime / (1000 * 60)) * 10000) / 10000).toFixed(4) % minuteInterval >
+        0.0 &&
+        (Math.round((elapsedTime / (1000 * 60)) * 10000) / 10000).toFixed(4) % minuteInterval <
+          0.0004) ||
+        (Math.round((elapsedTime / (1000 * 60)) * 10000) / 10000).toFixed(4) % minuteInterval ===
+          0.0)
+    ) {
+      console.log("SSSSOUNDDDDD!!!!!!", Math.floor((elapsedTime / (1000 * 60)) % 60));
       playSound();
     }
 
-    return () => clearInterval(intervalId);
-  }, [isRunning, time]);
+    return () => clearInterval(intervalRef.current);
+  }, [isRunning, elapsedTime]);
 
   document.addEventListener("visibilitychange", handleVisibility);
 
-  const hours = Math.floor(time / 360000);
-  const minutes = Math.floor((time % 360000) / 6000);
-  const seconds = Math.floor((time % 6000) / 100);
-  const milliseconds = time % 100;
+  const formatTime = () => {
+    const milliseconds = Math.floor((elapsedTime % 1000) / 10);
+    const seconds = Math.floor((elapsedTime / 1000) % 60);
+    const minutes = Math.floor(elapsedTime / 60000);
+    const hours = Math.floor(elapsedTime / (1000 * 60 * 60));
+
+    return {
+      hours: hours.toString().padStart(2, "0"),
+      minutes: minutes.toString().padStart(2, "0"),
+      seconds: seconds.toString().padStart(2, "0"),
+      milliseconds: milliseconds.toString().padStart(2, "0"),
+    };
+  };
+
+  const formattedTime = formatTime();
 
   const startStopTime = (e) => {
     setIsRunning(!isRunning);
     if (e) {
       let textBeforeChange = e.target.innerText;
-      textBeforeChange === "Start" ? acquireLock() : releaseLock();
+      if (textBeforeChange === "Start") {
+        acquireLock();
+        setStartTime(Date.now() - elapsedTime);
+      } else {
+        releaseLock();
+      }
     }
   };
-  const resetTime = () => {
+
+  const resetWatch = () => {
     setIsRunning(false);
-    setTime(0);
+    setStartTime(null);
+    setElapsedTime(0);
     releaseLock();
   };
 
-  let handleVolume = (val) => {
-    setVolume(val);
-    let vol = val;
+  let handleVolume = (e) => {
+    setVolume(e.target.valueAsNumber);
+    let vol = e.target.valueAsNumber;
     return playSound(vol);
   };
 
@@ -89,35 +129,45 @@ function Stopwatch() {
     setMinuteInterval(event.target.value);
   };
 
+  const handleSoundSelection = (e) => {
+    setSound(e.target.value);
+  };
+
   return (
     <>
-      <div className="flex gap-1 sm:gap-0 justify-center items-end sm:text-3xl text-stone-50 bg-stone-950 md:text-4xl lg:text-5xl pt-14 pb-16 sm:pt-10 sm:pb-12 px-2 sm:mx-10 md:mx-24 lg:mx-40 xl:mx-52 rounded-[3rem] selection:bg-stone-700 selection:text-green-500 shadow-md">
-        <div className={`flex-1 ${hours === 0 ? "text-stone-700" : "text-stone-300"}`}>
-          {hours.toString().padStart(2, "0")}
+      <div className="flex gap-1 sm:gap-0 justify-center items-end sm:text-3xl text-stone-50 bg-stone-950 md:text-4xl lg:text-5xl pt-14 pb-16 sm:pt-10 sm:pb-12 px-2 sm:mx-10 md:mx-24 lg:mx-40 xl:mx-52 rounded-[2rem] selection:bg-stone-700 selection:text-green-500 shadow-md">
+        <div
+          className={`flex-1 ${
+            formattedTime.hours === "00" ? "text-stone-700" : "text-stone-300"
+          }`}>
+          {formattedTime.hours}
         </div>
         <div className="hidden sm:block w-5 text-4xl md:text-5xl lg:text-6xl text-stone-600 select-none">
-          :
+          {" "}
         </div>
         <div
           className={`flex-1 ${
-            minutes === 0 ? "text-stone-700" : ""
+            formattedTime.minutes === "00" ? "text-stone-700" : ""
           } text-6xl sm:text-8xl md:text-[7rem] lg:text-[10rem]`}>
-          {minutes.toString().padStart(2, "0")}
+          {formattedTime.minutes}
         </div>
-        <div className="hidden sm:block w-5 text-5xl md:text-6xl lg:text-7xl text-stone-600 select-none">
-          :
+        <div className="hidden sm:block w-5 text-8xl md:text-9xl lg:text-7xl text-stone-600 select-none">
+          {" "}
         </div>
         <div
           className={`flex-1 ${
-            seconds === 0 ? "text-stone-700" : ""
+            formattedTime.seconds === "00" ? "text-stone-700" : ""
           } text-6xl sm:text-8xl md:text-[7rem] lg:text-[10rem] `}>
-          {seconds.toString().padStart(2, "0")}
+          {formattedTime.seconds}
         </div>
         <div className="hidden sm:block w-5 text-4xl md:text-5xl lg:text-6xl text-stone-600 select-none">
-          :
+          {" "}
         </div>
-        <div className={`flex-1  ${milliseconds === 0 ? "text-stone-700" : "text-stone-300"} `}>
-          {milliseconds.toString().padStart(2, "0")}
+        <div
+          className={`flex-1  ${
+            formattedTime.milliseconds === "00" ? "text-stone-700" : "text-stone-300"
+          } `}>
+          {formattedTime.milliseconds}
         </div>
       </div>
 
@@ -129,14 +179,14 @@ function Stopwatch() {
                 ? "border-amber-600 bg-amber-100 text-amber-600 hover:border-amber-200  hover:bg-amber-100 hover:text-amber-500 animate-pulse"
                 : "border-green-600 bg-green-50 text-green-600 hover:border-green-200  hover:bg-green-100 hover:text-green-600"
             } rounded-md font-semibold pb-3.5 shadow-lg select-none`}
-            onClick={(e) => startStopTime(e)}>
+            onClick={startStopTime}>
             {isRunning ? "Stop" : "Start"}
           </button>
         </div>
         <div className="basis-1/2 pt-10">
           <button
             className="ease-out duration-75 hover:origin-center hover:rotate-6 px-6 py-2  border-4 border-stone-200 bg-stone-100 text-stone-700 hover:bg-stone-800 hover:text-stone-50 hover:border-stone-300 text-4xl rounded-md font-semibold shadow-lg select-none hover:opacity-90"
-            onClick={resetTime}>
+            onClick={resetWatch}>
             Reset
           </button>
         </div>
@@ -157,7 +207,7 @@ function Stopwatch() {
               placeholder="None"
               step={1}
               onWheel={(e) => e.target.blur()}
-              onChange={(e) => handleSoundInterval(e)}
+              onChange={handleSoundInterval}
               id="minutes"
               className="text-2xl w-32 focus:scale-105 ease-out duration-300 px-2 py-2 my-5 border-4 focus-within:ring-4 focus:ring-offset-2 outline-none focus:ring-yellow-800 border-stone-200 bg-stone-50 text-stone-700 rounded-2xl font-semibold shadow-lg text-center"
             />
@@ -167,7 +217,7 @@ function Stopwatch() {
                 Sound
               </label>
               <select
-                onChange={(e) => setSound(e.target.value)}
+                onChange={handleSoundSelection}
                 id="soundSelect"
                 name="soundSelect"
                 className="appearance-none  ease-in-out duration-300 rounded-2xl py-2 px-7 text-center select-none text-stone-600 focus:ring-4 focus:ring-inset focus:ring-indigo-300 outline-none focus:scale-105 ">
@@ -184,10 +234,6 @@ function Stopwatch() {
 
             <div className="mt-6 py-2 flex justify-center space-x-2 mx-auto">
               <h3 className=" select-none text-stone-300 font-semibold opacity-90">Volume</h3>
-
-              {/* <div className=" select-none bg-stone-700 bg-opacity-30 px-2 rounded-full w-24 text-center text-stone-300 font-bold">
-                {muted ? formatVolume(0) : formatVolume(volume)}
-              </div> */}
             </div>
             <div className="py-2">
               <input
@@ -197,16 +243,11 @@ function Stopwatch() {
                 max={0.5}
                 step={0.02}
                 value={muted ? 0 : volume}
-                onInput={(event) => {
-                  handleVolume(event.target.valueAsNumber);
-                }}
+                onInput={handleVolume}
                 id="volume"
               />
             </div>
             <div className="py-2 flex mx-2">
-              {/* <div className="w-1/2 my-auto">
-                <span className="px-2">{muted ? 0 : volume}</span>
-              </div> */}
               <div className="w-full pb-5">
                 <button
                   className={`py-1.5 border-4 mx-auto px-3 ease-out duration-300 outline-none  border-stone-200 hover:border-stone-400 bg-stone-50 rounded-full shadow-lg text-xl text-center
