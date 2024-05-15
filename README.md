@@ -1,6 +1,6 @@
 # StopWatch 1.1.1
 
-After reading some of Hal Elrod's [The Miracle Morning](https://miraclemorning.com/), I realized that doing a few short, timed activities in succession would be more easy and enjoyable if I could be fully present and didn't have to continually watch a clock, routinely reset a count-down timer, or find and repurpose a pomodoro timer. I built this stopwatch as a learning project and solution to my issue.
+After reading some of Hal Elrod's [The Miracle Morning](https://miraclemorning.com/), I realized that doing a few short, timed activities in succession would be easier and more enjoyable if I could be fully present and didn't have to continually watch a clock, routinely reset a count-down timer, or find and repurpose a pomodoro timer. I built this stopwatch as a learning project and solution to this issue.
 
 StopWatch:
 
