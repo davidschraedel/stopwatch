@@ -135,7 +135,7 @@ function Stopwatch() {
   };
 
   return (
-    <div className="bg-stone-300 pt-10 pb-20 rounded-t-md rounded-b-md outline outline-2 -outline-offset-1 outline-[#ded7d5] mx-1 overflow-clip shadow-outerPlastic">
+    <div className="bg-gradient-to-br from-stone-200 to-stone-100 pt-10 pb-20 rounded-t-md rounded-b-md outline outline-2 -outline-offset-1 outline-[#ded7d5] mx-1 overflow-clip shadow-outerPlastic">
       <Display
         hours={formattedTime.hours}
         minutes={formattedTime.minutes}
@@ -148,11 +148,11 @@ function Stopwatch() {
         <div className="flex flex-col pt-12 sm:pt-16 pb-20 ">
           <div className="basis-1/2 pb-2">
             <button
-              className={`text-4xl ease-out w-48 duration-75 px-8 pt-2 pb-1.5  ${
+              className={`text-4xl ease-out w-48 duration-75 px-8 pt-2 pb-1.5 rounded-md font-semibold select-none ${
                 isRunning
                   ? "text-stone-700 bg-stone-300 hover:text-stone-200 hover:bg-stone-700"
                   : "text-stone-100 bg-stone-800 hover:text-stone-800 hover:bg-stone-200"
-              } rounded-md font-semibold select-none`}
+              }`}
               onClick={startStopTime}>
               {isRunning ? CONSTANTS.STOP : CONSTANTS.START}
             </button>

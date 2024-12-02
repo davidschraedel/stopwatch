@@ -18,6 +18,7 @@ export default {
       boxShadow: {
         display: "inset -0.35rem -0.15rem 2rem rgb(168, 162, 158,0.7);",
         outerPlastic: " -0.3rem -0.1rem 1.5rem rgb(28, 25, 23,0.1)",
+        body: " 0rem 0rem 1rem rgb(28, 25, 23,1)",
       },
       fontFamily: {
         calc: "Courier New, Trebuchet MS",
