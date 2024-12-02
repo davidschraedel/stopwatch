@@ -135,7 +135,7 @@ function Stopwatch() {
   };
 
   return (
-    <div className="bg-stone-300 pt-10 pb-20 rounded-t-[3rem] rounded-b-[10rem] mx-1 overflow-clip shadow-lg">
+    <div className="bg-stone-300 pt-10 pb-20 rounded-t-md rounded-b-md outline outline-2 -outline-offset-1 outline-[#ded7d5] mx-1 overflow-clip shadow-outerPlastic">
       <Display
         hours={formattedTime.hours}
         minutes={formattedTime.minutes}
@@ -143,15 +143,15 @@ function Stopwatch() {
         milliseconds={formattedTime.milliseconds}
       />
 
-      <div className="bg-gradient-to-tl from-stone-800 to-neutral-950 pb-1 w-11/12 sm:w-2/3 lg:w-1/2 mx-auto mt-10 mb-10 rounded-sm shadow-plasticBacking outline -outline-offset-1 outline-2 outline-stone-700 font-calc">
+      <div className="bg-gradient-to-tl from-stone-800 to-neutral-950 pb-1 w-11/12 sm:w-2/3 lg:w-1/2 mx-auto mt-10 mb-10 rounded-md shadow-display outline -outline-offset-1 outline-2 outline-stone-700 font-calc">
         {/* clock buttons */}
         <div className="flex flex-col pt-12 sm:pt-16 pb-20 ">
           <div className="basis-1/2 pb-2">
             <button
-              className={`text-4xl ease-out w-48 duration-75 px-8 pt-2 pb-1.5 border-4  ${
+              className={`text-4xl ease-out w-48 duration-75 px-8 pt-2 pb-1.5  ${
                 isRunning
-                  ? "border-amber-600 bg-amber-100 text-amber-600 hover:border-amber-200  hover:bg-amber-100 hover:text-amber-500 animate-pulse"
-                  : "border-green-600 bg-green-50 text-green-600 hover:border-green-200  hover:bg-green-100 hover:text-green-600"
+                  ? "text-stone-700 bg-stone-300 hover:text-stone-200 hover:bg-stone-700"
+                  : "text-stone-100 bg-stone-800 hover:text-stone-800 hover:bg-stone-200"
               } rounded-md font-semibold select-none`}
               onClick={startStopTime}>
               {isRunning ? CONSTANTS.STOP : CONSTANTS.START}
@@ -159,7 +159,7 @@ function Stopwatch() {
           </div>
           <div className="basis-1/2 pt-10">
             <button
-              className="ease-out duration-75 hover:origin-center hover:rotate-6 px-6 pt-2 pb-1.5  border-4 border-stone-200 bg-stone-100 text-stone-700 hover:bg-stone-800 hover:text-stone-50 hover:border-stone-300 text-4xl rounded-md font-semibold shadow-lg select-none hover:opacity-90"
+              className="text-4xl ease-out w-48 duration-75 px-8 pt-2 pb-1.5 text-stone-100 bg-stone-800 hover:text-stone-800 hover:bg-stone-200 rounded-md font-semibold select-none"
               onClick={resetWatch}>
               RESET
             </button>
@@ -170,9 +170,7 @@ function Stopwatch() {
         <div className="flex flex-col pt-2 mb-20 mx-auto w-10/12 sm:w-9/12 xl:mx-[28rem] overflow-clip">
           <div className="flex flex-col justify-center">
             <div className=" py-3 bg-stone-700 bg-opacity-40 shadow-plasticBacking text-stone-100 rounded-md select-none">
-              <h3 className="mt-5 select-none text-stone-300 font-semibold opacity-90">
-                INTERVAL IN MINUTES
-              </h3>
+              <h3 className="mt-5 select-none text-stone-300 font-semibold">INTERVAL IN MINUTES</h3>
               <input
                 type="number"
                 min={0}
@@ -183,7 +181,7 @@ function Stopwatch() {
                 id="minutes"
                 className=" w-32 ease-out duration-300 px-2 py-1.5 my-2 border-4 focus-within:ring-4 outline-none placeholder:text-stone-500 focus:ring-green-500 border-stone-200 bg-stone-50 text-stone-700 rounded-2xl font-semibold shadow-lg text-center"
               />
-              <h3 className="mt-6 select-none text-stone-300 font-semibold opacity-90">SOUND</h3>
+              <h3 className="mt-6 select-none text-stone-300 font-semibold">SOUND</h3>
               <div className="flex items-center justify-center my-2 pb-6 ">
                 <label htmlFor="soundSelect" className="sr-only">
                   SOUND
@@ -192,7 +190,7 @@ function Stopwatch() {
                   onChange={handleSoundSelection}
                   id="soundSelect"
                   name="soundSelect"
-                  className="appearance-none ease-in-out duration-300 rounded-2xl py-2 px-0 sm:px-7 text-center select-none text-stone-600 focus:ring-4 focus:ring-inset focus:ring-green-500 outline-none ">
+                  className="appearance-none ease-in-out font-semibold duration-300 rounded-2xl py-2 px-0 sm:px-7 text-center select-none text-stone-500 focus:ring-4 focus:ring-inset focus:ring-green-500 outline-none ">
                   <option value={null}>NONE</option>
                   {soundList.map((sound) => {
                     return (
@@ -205,7 +203,7 @@ function Stopwatch() {
               </div>
 
               <div className="mt-4 py-1.5 flex justify-center space-x-2 mx-auto">
-                <h3 className=" select-none text-stone-300 font-semibold opacity-90">VOLUME</h3>
+                <h3 className=" select-none text-stone-300 font-semibold">VOLUME</h3>
               </div>
               <div className="">
                 <input
@@ -222,8 +220,12 @@ function Stopwatch() {
               <div className="py-2 flex mx-2 ">
                 <div className="w-full pb-5">
                   <button
-                    className={`py-1.5 border-4 mx-auto px-3 ease-out duration-300 outline-none  border-stone-200 hover:border-stone-400 bg-stone-50 rounded-full shadow-lg text-xl text-center focus:ring-4 focus:ring-green-500
-                ${muted ? "line-through text-stone-400" : "text-stone-600"}`}
+                    className={`py-1.5 border-4 mx-auto font-semibold px-3 ease-out duration-300 outline-none  border-stone-200 bg-stone-50 rounded-full shadow-lg text-xl text-center focus:ring-4 focus:ring-green-500
+                ${
+                  muted
+                    ? "line-through text-stone-400 hover:border-stone-300"
+                    : "text-stone-500 hover:border-stone-400"
+                }`}
                     onClick={() => setMuted((m) => !m)}>
                     MUTE
                   </button>
