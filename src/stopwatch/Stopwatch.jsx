@@ -135,7 +135,7 @@ function Stopwatch() {
   };
 
   return (
-    <div className="bg-gradient-to-br from-stone-200 to-stone-100 pt-10 pb-20 rounded-t-md rounded-b-md outline outline-2 -outline-offset-1 outline-[#ded7d5] mx-1 overflow-clip shadow-outerPlastic">
+    <div className=" pt-10 pb-10 rounded-t-md rounded-b-md outline-2 -outline-offset-1 outline-[#ded7d5] mx-2 overflow-clip ">
       <Display
         hours={formattedTime.hours}
         minutes={formattedTime.minutes}
@@ -143,7 +143,7 @@ function Stopwatch() {
         milliseconds={formattedTime.milliseconds}
       />
 
-      <div className="bg-gradient-to-tl from-stone-800 to-neutral-950 pb-1 w-11/12 sm:w-2/3 lg:w-1/2 mx-auto mt-10 mb-10 rounded-md shadow-display outline -outline-offset-1 outline-2 outline-stone-700 font-calc">
+      <div className="bg-gradient-to-tl from-stone-800 to-neutral-950 pb-1 w-11/12 sm:w-2/3 lg:w-1/2 mx-auto mt-14 rounded-md shadow-display outline -outline-offset-1 outline-2 outline-stone-700 font-calc">
         {/* clock buttons */}
         <div className="flex flex-col pt-12 sm:pt-16 pb-20 ">
           <div className="basis-1/2 pb-2">
@@ -169,7 +169,7 @@ function Stopwatch() {
         {/* settings */}
         <div className="flex flex-col pt-2 mb-20 mx-auto w-10/12 sm:w-9/12 xl:mx-[28rem] overflow-clip">
           <div className="flex flex-col justify-center">
-            <div className=" py-3 bg-stone-700 bg-opacity-40 shadow-plasticBacking text-stone-100 rounded-md select-none">
+            <div className=" py-3 bg-stone-800 bg-opacity-100 shadow-plasticBacking text-stone-100 rounded-md select-none">
               <h3 className="mt-5 select-none text-stone-300 font-semibold">INTERVAL IN MINUTES</h3>
               <input
                 type="number"
