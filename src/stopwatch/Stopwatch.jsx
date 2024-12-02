@@ -143,7 +143,7 @@ function Stopwatch() {
         milliseconds={formattedTime.milliseconds}
       />
 
-      <div className="bg-gradient-to-tl from-stone-800 to-neutral-950 pb-1 w-11/12 sm:w-2/3 lg:w-1/2 mx-auto mt-14 rounded-md shadow-display outline -outline-offset-1 outline-2 outline-stone-700 font-calc">
+      <div className="bg-stone-950 pb-1 w-11/12 sm:w-2/3 lg:w-1/2 mx-auto mt-14 rounded-md shadow-display outline -outline-offset-1 outline-2 outline-stone-700 font-calc">
         {/* clock buttons */}
         <div className="flex flex-col pt-12 sm:pt-16 pb-20 ">
           <div className="basis-1/2 pb-2">
