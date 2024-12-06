@@ -148,7 +148,7 @@ function Stopwatch() {
         <div className="flex flex-col pt-12 sm:pt-16 pb-20 ">
           <div className="basis-1/2 pb-2">
             <button
-              className={`text-4xl ease-out w-48 duration-75 px-8 pt-2 pb-1.5 rounded-md font-semibold select-none ${
+              className={`text-4xl ease-out w-48 duration-75 px-8 pt-2 pb-1.5 rounded-md font-semibold select-none focus:ring-4 focus:ring-inset focus:ring-green-500 outline-none ${
                 isRunning
                   ? "text-stone-700 bg-stone-300 hover:text-stone-200 hover:bg-stone-700"
                   : "text-stone-100 bg-stone-800 hover:text-stone-800 hover:bg-stone-200"
@@ -159,7 +159,7 @@ function Stopwatch() {
           </div>
           <div className="basis-1/2 pt-10">
             <button
-              className="text-4xl ease-out w-48 duration-75 px-8 pt-2 pb-1.5 text-stone-100 bg-stone-800 hover:text-stone-800 hover:bg-stone-200 rounded-md font-semibold select-none"
+              className="text-4xl ease-out w-48 duration-75 px-8 pt-2 pb-1.5 text-stone-100 bg-stone-800 hover:text-stone-800 hover:bg-stone-200 rounded-md font-semibold select-none focus:ring-4 focus:ring-inset focus:ring-green-500 outline-none"
               onClick={resetWatch}>
               RESET
             </button>
