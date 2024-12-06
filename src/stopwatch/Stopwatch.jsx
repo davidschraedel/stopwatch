@@ -167,7 +167,7 @@ function Stopwatch() {
         </div>
 
         {/* settings */}
-        <div className="flex flex-col pt-2 mb-20 mx-auto w-10/12 sm:w-9/12 xl:mx-[28rem] overflow-clip">
+        <div className="flex flex-col pt-2 mb-20 mx-auto w-10/12 sm:w-9/12 overflow-clip">
           <div className="flex flex-col justify-center">
             <div className=" py-3 bg-stone-800 bg-opacity-100 shadow-plasticBacking text-stone-100 rounded-md select-none">
               <h3 className="mt-5 select-none text-stone-300 font-semibold">INTERVAL IN MINUTES</h3>
