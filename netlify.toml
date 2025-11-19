@@ -1,0 +1,31 @@
+# netlify.toml
+
+# ===============================================
+# A. GENERAL BUILD SETTINGS (Applies to all contexts)
+# ===============================================
+
+[build]
+  # Your build command and publish directory
+  command = "npm run build"
+  publish = "dist"
+  
+  # Set the VITE_BASE_PATH for Netlify (Production and branch deploys)
+  # This value is what your Vite config uses for its 'base'
+  environment = { VITE_BASE_PATH = "/" }
+
+
+# ===============================================
+# B. ROUTING FIX (Your Single Page App Redirect)
+# ===============================================
+
+# This replaces the need for a separate _redirects file
+# It ensures all requests not matching an asset fall back to index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# You can add a specific context for your GitHub Pages environment
+# by defining a different environment block here if needed, but 
+# typically you let GitHub Pages handle its own environment variables 
+# through its workflow config.
