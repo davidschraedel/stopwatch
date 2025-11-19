@@ -20,11 +20,17 @@
 
 # This replaces the need for a separate _redirects file
 # It ensures all requests not matching an asset fall back to index.html
+# NEW BLOCK (The correct SPA fallback)
 [[redirects]]
+  # This rule applies to all requests
   from = "/*"
+  # Redirects all traffic to the index.html
   to = "/index.html"
+  # Status 200 means rewrite (not redirect) the path
   status = 200
-
+  # Crucially, 'force = false' means this rule only applies 
+  # if a physical file or folder doesn't already exist at the path.
+  force = false
 # You can add a specific context for your GitHub Pages environment
 # by defining a different environment block here if needed, but 
 # typically you let GitHub Pages handle its own environment variables 
