@@ -22,6 +22,7 @@ function Stopwatch({ theme = "dawn", setTheme = () => { } }) {
   const [wakeLock, setWakeLock] = useState(null);
 
   const intervalRef = useRef(0);
+  const lastPlayedIntervalRef = useRef(0);
 
   const acquireLock = async () => {
     try {
@@ -63,16 +64,13 @@ function Stopwatch({ theme = "dawn", setTheme = () => { } }) {
     //   clearInterval(timer);
     // }
 
-    if (
-      Math.floor((elapsedTime / (1000 * 60)) % 60) > 0 &&
-      (((Math.round((elapsedTime / (1000 * 60)) * 10000) / 10000).toFixed(4) % minuteInterval >
-        0.0 &&
-        (Math.round((elapsedTime / (1000 * 60)) * 10000) / 10000).toFixed(4) % minuteInterval <
-        0.0004) ||
-        (Math.round((elapsedTime / (1000 * 60)) * 10000) / 10000).toFixed(4) % minuteInterval ===
-        0.0)
-    ) {
-      playSound();
+    const intervalMs = Number(minuteInterval) * 60 * 1000;
+    if (intervalMs > 0 && elapsedTime > 0) {
+      const currentInterval = Math.floor(elapsedTime / intervalMs);
+      if (currentInterval > lastPlayedIntervalRef.current) {
+        lastPlayedIntervalRef.current = currentInterval;
+        playSound();
+      }
     }
 
     return () => clearInterval(intervalRef.current);
@@ -111,6 +109,7 @@ function Stopwatch({ theme = "dawn", setTheme = () => { } }) {
     setStartTime(null);
     setElapsedTime(0);
     releaseLock();
+    lastPlayedIntervalRef.current = 0;
   };
 
   let handleVolume = (e) => {
@@ -130,7 +129,13 @@ function Stopwatch({ theme = "dawn", setTheme = () => { } }) {
   }
 
   const handleSoundInterval = (event) => {
-    setMinuteInterval(event.target.value);
+    const val = Number(event.target.value) || 0;
+    setMinuteInterval(val);
+    if (val > 0) {
+      lastPlayedIntervalRef.current = Math.floor(elapsedTime / (val * 60 * 1000));
+    } else {
+      lastPlayedIntervalRef.current = 0;
+    }
   };
 
   const handleSoundSelection = (e) => {
@@ -153,7 +158,7 @@ function Stopwatch({ theme = "dawn", setTheme = () => { } }) {
             <button
               className={`text-4xl ease-out w-48 duration-75 px-8 pt-2 pb-1.5 rounded-md font-semibold select-none focus:ring-4 focus:ring-inset focus:ring-green-500 outline-none ${isRunning
                 ? "text-stone-700 bg-stone-300 hover:text-stone-200 hover:bg-stone-700"
-                : "text-stone-100 bg-stone-800 hover:text-stone-800 hover:bg-stone-200 uppercase"
+                : "text-stone-100 bg-stone-800 hover:text-stone-800 hover:bg-stone-200"
                 }`}
               onClick={startStopTime}>
               {isRunning ? CONSTANTS.STOP : CONSTANTS.START}
@@ -161,7 +166,7 @@ function Stopwatch({ theme = "dawn", setTheme = () => { } }) {
           </div>
           <div className="basis-1/2 pt-10">
             <button
-              className="text-4xl ease-out w-48 duration-75 px-8 pt-2 pb-1.5 text-stone-100 bg-stone-800 hover:text-stone-800 hover:bg-stone-200 rounded-md font-semibold select-none focus:ring-4 focus:ring-inset focus:ring-green-500 outline-none uppercase"
+              className="text-4xl ease-out w-48 duration-75 px-8 pt-2 pb-1.5 text-stone-100 bg-stone-800 hover:text-stone-800 hover:bg-stone-200 rounded-md font-semibold select-none focus:ring-4 focus:ring-inset focus:ring-green-500 outline-none"
               onClick={resetWatch}>
               Reset
             </button>
