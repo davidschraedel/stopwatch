@@ -4,11 +4,11 @@ import { THEMES } from "../themes";
 import Display from "./Display";
 
 const CONSTANTS = {
-  START: "START",
-  STOP: "STOP",
+  START: "Start",
+  STOP: "Stop",
 };
 
-function Stopwatch({ theme = "dawn", setTheme = () => {} }) {
+function Stopwatch({ theme = "dawn", setTheme = () => { } }) {
   const [startTime, setStartTime] = useState(null);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
@@ -63,9 +63,9 @@ function Stopwatch({ theme = "dawn", setTheme = () => {} }) {
       (((Math.round((elapsedTime / (1000 * 60)) * 10000) / 10000).toFixed(4) % minuteInterval >
         0.0 &&
         (Math.round((elapsedTime / (1000 * 60)) * 10000) / 10000).toFixed(4) % minuteInterval <
-          0.0004) ||
+        0.0004) ||
         (Math.round((elapsedTime / (1000 * 60)) * 10000) / 10000).toFixed(4) % minuteInterval ===
-          0.0)
+        0.0)
     ) {
       playSound();
     }
@@ -149,20 +149,19 @@ function Stopwatch({ theme = "dawn", setTheme = () => {} }) {
         <div className="flex flex-col pt-12 sm:pt-16 pb-20 ">
           <div className="basis-1/2 pb-2">
             <button
-              className={`text-4xl ease-out w-48 duration-75 px-8 pt-2 pb-1.5 rounded-md font-semibold select-none focus:ring-4 focus:ring-inset focus:ring-green-500 outline-none ${
-                isRunning
-                  ? "text-stone-700 bg-stone-300 hover:text-stone-200 hover:bg-stone-700"
-                  : "text-stone-100 bg-stone-800 hover:text-stone-800 hover:bg-stone-200"
-              }`}
+              className={`text-4xl ease-out w-48 duration-75 px-8 pt-2 pb-1.5 rounded-md font-semibold select-none focus:ring-4 focus:ring-inset focus:ring-green-500 outline-none ${isRunning
+                ? "text-stone-700 bg-stone-300 hover:text-stone-200 hover:bg-stone-700"
+                : "text-stone-100 bg-stone-800 hover:text-stone-800 hover:bg-stone-200 uppercase"
+                }`}
               onClick={startStopTime}>
               {isRunning ? CONSTANTS.STOP : CONSTANTS.START}
             </button>
           </div>
           <div className="basis-1/2 pt-10">
             <button
-              className="text-4xl ease-out w-48 duration-75 px-8 pt-2 pb-1.5 text-stone-100 bg-stone-800 hover:text-stone-800 hover:bg-stone-200 rounded-md font-semibold select-none focus:ring-4 focus:ring-inset focus:ring-green-500 outline-none"
+              className="text-4xl ease-out w-48 duration-75 px-8 pt-2 pb-1.5 text-stone-100 bg-stone-800 hover:text-stone-800 hover:bg-stone-200 rounded-md font-semibold select-none focus:ring-4 focus:ring-inset focus:ring-green-500 outline-none uppercase"
               onClick={resetWatch}>
-              RESET
+              Reset
             </button>
           </div>
         </div>
@@ -171,7 +170,7 @@ function Stopwatch({ theme = "dawn", setTheme = () => {} }) {
         <div className="flex flex-col pt-2 mb-20 mx-auto w-10/12 sm:w-9/12 overflow-clip">
           <div className="flex flex-col justify-center">
             <div className=" py-3 bg-stone-800 bg-opacity-100 shadow-plasticBacking text-stone-100 rounded-md select-none">
-              <h3 className="mt-5 select-none text-stone-300 font-semibold">INTERVAL IN MINUTES</h3>
+              <h3 className="mt-5 select-none text-stone-300 font-semibold uppercase">Interval (Minutes)</h3>
               <input
                 type="number"
                 min={0}
@@ -182,17 +181,17 @@ function Stopwatch({ theme = "dawn", setTheme = () => {} }) {
                 id="minutes"
                 className=" w-32 ease-out duration-300 px-2 py-1.5 my-2 border-4 focus-within:ring-4 outline-none placeholder:text-stone-500 focus:ring-green-500 border-stone-200 bg-stone-50 text-stone-700 rounded-2xl font-semibold shadow-lg text-center"
               />
-              <h3 className="mt-6 select-none text-stone-300 font-semibold">SOUND</h3>
+              <h3 className="mt-6 select-none text-stone-300 font-semibold uppercase">Sound</h3>
               <div className="flex items-center justify-center my-2 pb-6 ">
                 <label htmlFor="soundSelect" className="sr-only">
-                  SOUND
+                  Sound
                 </label>
                 <select
                   onChange={handleSoundSelection}
                   id="soundSelect"
                   name="soundSelect"
-                  className="appearance-none ease-in-out font-semibold duration-300 rounded-2xl py-2 px-0 sm:px-7 text-center select-none text-stone-500 focus:ring-4 focus:ring-inset focus:ring-green-500 outline-none ">
-                  <option value={null}>NONE</option>
+                  className="appearance-none ease-in-out font-semibold duration-300 rounded-2xl py-2 px-0 sm:px-7 text-center select-none text-stone-500 focus:ring-4 focus:ring-inset focus:ring-green-500 outline-none uppercase">
+                  <option value={null}>None</option>
                   {soundList.map((sound) => {
                     return (
                       <option key={sound.id} value={sound.path}>
@@ -221,20 +220,19 @@ function Stopwatch({ theme = "dawn", setTheme = () => {} }) {
               <div className="py-2 flex mx-2 ">
                 <div className="w-full pb-2">
                   <button
-                    className={`py-1.5 border-4 mx-auto font-semibold px-3 ease-out duration-300 outline-none  border-stone-200 bg-stone-50 rounded-full shadow-lg text-xl text-center focus:ring-4 focus:ring-green-500
-                ${
-                  muted
-                    ? "line-through text-stone-400 hover:border-stone-300"
-                    : "text-stone-500 hover:border-stone-400"
-                }`}
+                    className={`py-1.5 border-4 mx-auto font-semibold px-3 ease-out duration-300 outline-none  border-stone-200 bg-stone-50 rounded-full shadow-lg text-xl text-center focus:ring-4 focus:ring-green-500 uppercase
+                ${muted
+                        ? "line-through text-stone-400 hover:border-stone-300"
+                        : "text-stone-500 hover:border-stone-400"
+                      }`}
                     onClick={() => setMuted((m) => !m)}>
-                    MUTE
+                    Mute
                   </button>
                 </div>
               </div>
 
               <div className="pt-2 pb-5 px-2">
-                <h3 className="select-none text-stone-300 font-semibold mb-3">THEME</h3>
+                <h3 className="select-none text-stone-300 font-semibold mb-3 uppercase">Theme</h3>
                 <div className="flex flex-wrap justify-center gap-2">
                   {THEMES.map((t) => {
                     const isSelected = theme === t.id;
@@ -243,11 +241,10 @@ function Stopwatch({ theme = "dawn", setTheme = () => {} }) {
                         key={t.id}
                         type="button"
                         onClick={() => setTheme(t.id)}
-                        className={`py-1 px-3 border-4 font-semibold text-xs sm:text-sm rounded-full shadow-lg ease-out duration-300 outline-none focus:ring-4 focus:ring-green-500 ${
-                          isSelected
-                            ? "border-green-500 bg-stone-300 text-stone-800 ring-2 ring-green-500/60"
-                            : "border-stone-200 bg-stone-50 text-stone-500 hover:border-stone-400"
-                        }`}
+                        className={`py-1 px-3 border-4 font-semibold text-xs sm:text-sm rounded-full shadow-lg ease-out duration-300 outline-none focus:ring-4 focus:ring-green-500 ${isSelected
+                          ? "border-green-500 bg-stone-300 text-stone-800 ring-2 ring-green-500/60"
+                          : "border-stone-200 bg-stone-50 text-stone-500 hover:border-stone-400"
+                          }`}
                       >
                         {t.name}
                       </button>

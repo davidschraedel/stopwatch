@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 function Footer() {
   function getYear() {
     let year = new Date().getFullYear();
@@ -15,53 +13,62 @@ function Footer() {
             <div className="flex flex-1 justify-center sm:items-stretch ">
               <div className="flex flex-shrink-0">
                 <div className="flex space-x-4">
-                  <Link
+                  <a
                     className="ease-in-out duration-150 select-none text-stone-900 hover:bg-[#0077B5] hover:text-stone-100 rounded-md px-3 py-2 text-sm font-medium min-w-24 focus:outline-stone-100"
-                    to={"https://www.linkedin.com/in/david-schraedel/"}
-                    target="_blank">
+                    href="https://www.linkedin.com/in/david-schraedel/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     LinkedIn
-                  </Link>
-                  <br className="select-none" />
-                  <Link
-                    className="ease-in-out duration-150 select-none text-stone-900 hover:bg-[#2b3137] hover:text-[#fafbfc] rounded-md px-3 py-2 text-sm font-medium min-w-24 focus:outline-[#fafbfc]"
-                    to={"https://github.com/davidschraedel"}
-                    target="_blank">
-                    Github
-                  </Link>
-                </div>
-              </div>
+                </a>
+                <br className="select-none" />
+                  <a
+                  className="ease-in-out duration-150 select-none text-stone-900 hover:bg-[#2b3137] hover:text-[#fafbfc] rounded-md px-3 py-2 text-sm font-medium min-w-24 focus:outline-[#fafbfc]"
+                  href="https://github.com/davidschraedel"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >
+                  Github
+              </a>
             </div>
           </div>
         </div>
-
-        <div className="block sm:hidden mx-auto max-w-7xl pb-6 sm:px-6 lg:px-8 ">
-          <div className="mt-4 flex flex-1 justify-center">
-            <div className="w-full flex flex-col items-center justify-center">
-              <Link
-                className="bg-[#0077B5] text-stone-100 hover:shadow-md rounded-md px-3 py-2 my-4 text-sm font-medium min-w-24 focus:outline-stone-100"
-                to={"https://www.linkedin.com/in/david-schraedel/"}
-                target="_blank">
-                LinkedIn
-              </Link>
-
-              <Link
-                className="bg-[#2b3137] text-[#fafbfc] hover:shadow-md rounded-md px-3 py-2 my-4 text-sm font-medium min-w-24 focus:outline-[#fafbfc]"
-                to={"https://github.com/davidschraedel"}
-                target="_blank">
-                Github
-              </Link>
-            </div>
-          </div>
-        </div>
-        <Link
-          to={"mailto:davidschraedel@gmail.com"}
-          className="text-stone-100 text-sm sm:text-md p-1  hover:text-stone-600 focus:outline-stone-100 focus:hover:outline-transparent">
-          davidschraedel@gmail.com
-        </Link>
-        <p className="pb-10 pt-2 text-sm text-stone-100 ">
-          © {currentYear || "2024"} David Schraedel
-        </p>
       </div>
+    </div >
+
+      <div className="block sm:hidden mx-auto max-w-7xl pb-6 sm:px-6 lg:px-8 ">
+        <div className="mt-4 flex flex-1 justify-center">
+          <div className="w-full flex flex-col items-center justify-center">
+              <a
+              className="bg-[#0077B5] text-stone-100 hover:shadow-md rounded-md px-3 py-2 my-4 text-sm font-medium min-w-24 focus:outline-stone-100"
+              href="https://www.linkedin.com/in/david-schraedel/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >
+              LinkedIn
+          </a>
+
+              <a
+            className="bg-[#2b3137] text-[#fafbfc] hover:shadow-md rounded-md px-3 py-2 my-4 text-sm font-medium min-w-24 focus:outline-[#fafbfc]"
+            href="https://github.com/davidschraedel"
+            target="_blank"
+            rel="noopener noreferrer"
+              >
+            Github
+        </a>
+      </div>
+          </div >
+        </div >
+      <a
+        href="mailto:davidschraedel@gmail.com"
+        className="text-stone-100 text-sm sm:text-md p-1 hover:text-stone-600 focus:outline-stone-100 focus:hover:outline-transparent"
+      >
+        davidschraedel@gmail.com
+        </a >
+    <p className="pb-10 pt-2 text-sm text-stone-100 ">
+      © {currentYear || "2024"} David Schraedel
+    </p>
+      </div >
     </>
   );
 }
