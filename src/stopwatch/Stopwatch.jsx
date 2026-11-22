@@ -4,8 +4,8 @@ import { THEMES } from "../themes";
 import Display from "./Display";
 
 const CONSTANTS = {
-  START: "START",
-  STOP: "STOP",
+  START: "Start",
+  STOP: "Stop",
 };
 
 function Stopwatch({ theme = "dawn", setTheme = () => { } }) {
@@ -95,16 +95,14 @@ function Stopwatch({ theme = "dawn", setTheme = () => { } }) {
 
   const formattedTime = formatTime();
 
-  const startStopTime = (e) => {
-    setIsRunning(!isRunning);
-    if (e) {
-      let textBeforeChange = e.target.innerText;
-      if (textBeforeChange === CONSTANTS.START) {
-        acquireLock();
-        setStartTime(Date.now() - elapsedTime);
-      } else {
-        releaseLock();
-      }
+  const startStopTime = () => {
+    if (!isRunning) {
+      setIsRunning(true);
+      acquireLock();
+      setStartTime(Date.now() - elapsedTime);
+    } else {
+      setIsRunning(false);
+      releaseLock();
     }
   };
 
