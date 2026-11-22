@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { soundList } from "../assets";
+import { THEMES } from "../themes";
 import Display from "./Display";
 
 const CONSTANTS = {
@@ -7,7 +8,7 @@ const CONSTANTS = {
   STOP: "STOP",
 };
 
-function Stopwatch() {
+function Stopwatch({ theme = "dawn", setTheme = () => {} }) {
   const [startTime, setStartTime] = useState(null);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
@@ -218,7 +219,7 @@ function Stopwatch() {
                 />
               </div>
               <div className="py-2 flex mx-2 ">
-                <div className="w-full pb-5">
+                <div className="w-full pb-2">
                   <button
                     className={`py-1.5 border-4 mx-auto font-semibold px-3 ease-out duration-300 outline-none  border-stone-200 bg-stone-50 rounded-full shadow-lg text-xl text-center focus:ring-4 focus:ring-green-500
                 ${
@@ -229,6 +230,29 @@ function Stopwatch() {
                     onClick={() => setMuted((m) => !m)}>
                     MUTE
                   </button>
+                </div>
+              </div>
+
+              <div className="pt-2 pb-5 px-2">
+                <h3 className="select-none text-stone-300 font-semibold mb-3">THEME</h3>
+                <div className="flex flex-wrap justify-center gap-2">
+                  {THEMES.map((t) => {
+                    const isSelected = theme === t.id;
+                    return (
+                      <button
+                        key={t.id}
+                        type="button"
+                        onClick={() => setTheme(t.id)}
+                        className={`py-1 px-3 border-4 font-semibold text-xs sm:text-sm rounded-full shadow-lg ease-out duration-300 outline-none focus:ring-4 focus:ring-green-500 ${
+                          isSelected
+                            ? "border-green-500 bg-stone-300 text-stone-800 ring-2 ring-green-500/60"
+                            : "border-stone-200 bg-stone-50 text-stone-500 hover:border-stone-400"
+                        }`}
+                      >
+                        {t.name}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             </div>
