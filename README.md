@@ -1,34 +1,48 @@
-# StopWatch 1.1.1
+# SoundWatch
 
-After reading some of Hal Elrod's [The Miracle Morning](https://miraclemorning.com/), I realized that doing a few successive, timed activities would be easier and more enjoyable if I could be fully present and didn't have to continually watch a clock, routinely reset a count-down timer, or find and repurpose a pomodoro timer. I built this stopwatch as a solution to this issue.
+A clean, distraction-free stopwatch that plays audio cues at customizable minute intervals—allowing users to stay immersed in their workflow, routines, or meditation without clock-watching.
 
-Use the stopwatch [here](https://davidschraedel.github.io/stopwatch/) or [here](https://soundwatch.netlify.app/)
+**Live Demo:** [GitHub Pages](https://davidschraedel.github.io/stopwatch/) | [Netlify](https://soundwatch.netlify.app/)
 
-StopWatch:
+---
 
-- **encourages a focus on how much time as passed in total, rather than how much time is left for an activity**
-- **encourages the user to fully immerse in an activity, rather than watching the clock**
+## Features
 
-## Tech/Frameworks:
+- **Interval Audio Alerts:** Set a recurring minute interval and choose from a library of sound presets to track elapsed time hands-free.
+- **Volume & Audio Controls:** Adjust alert volume with preview or toggle mute.
+- **Themes:** Switch between color themes (Dawn, Polaroid, Vintage, Golden) with automatic preference persistence.
+- **Screen Wake Lock:** Keeps the display awake while the timer is actively running.
+- **Responsive & Lightweight:** Built for desktop and mobile with zero unnecessary bloat.
 
-JavaScript  
-[Node.js](https://nodejs.org/)  
-[Vite](https://vitejs.dev/)  
-[React](https://react.dev/)  
-[react-router-dom](https://www.npmjs.com/package/react-router-dom)  
-[TailwindCss](https://tailwindcss.com/)
+## Tech Stack
 
-## How to Use
+- [React](https://react.dev/)
+- [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
 
-- Choose a interval in number of minutes from the number input. If no interval is selected, none will be used.
-- Choose a sound to be played each interval from the sound options input. If no sound is selected, none will be played.
-- Adjust audio volume for sounds, if needed.
-- Press "Start".
-- Screen will stay awake while timer is running and the page is currently active/focused.
+## Getting Started
 
-## Credits
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/davidschraedel/stopwatch.git
+   cd stopwatch
+   ```
 
-Thank you [Jack Herrington](https://www.youtube.com/watch?v=j8s01ThR7bQ) for making it look easy.
-Thanks to [React](https://react.dev/learn) for having practical learning resources/documentation.
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-**David Schraedel** | **2024**
+3. **Run locally:**
+   ```bash
+   npm run dev
+   ```
+
+4. **Build production bundle:**
+   ```bash
+   npm run build
+   ```
+
+---
+
+© David Schraedel
