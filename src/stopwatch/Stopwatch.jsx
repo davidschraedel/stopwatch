@@ -4,8 +4,8 @@ import { THEMES } from "../themes";
 import Display from "./Display";
 
 const CONSTANTS = {
-  START: "Start",
-  STOP: "Stop",
+  START: "START",
+  STOP: "STOP",
 };
 
 function Stopwatch({ theme = "dawn", setTheme = () => { } }) {
@@ -38,15 +38,20 @@ function Stopwatch({ theme = "dawn", setTheme = () => { } }) {
     }
   };
 
-  function handleVisibility() {
-    if (document.hidden) {
-      if (wakeLock !== null) {
-        releaseLock();
+  useEffect(() => {
+    function handleVisibility() {
+      if (document.hidden && wakeLock !== null) {
+        wakeLock.release().then(() => {
+          setWakeLock(null);
+        });
         setIsRunning(false);
       }
-      document.removeEventListener("visibilitychange", handleVisibility);
     }
-  }
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibility);
+    };
+  }, [wakeLock]);
 
   useEffect(() => {
     if (isRunning) {
@@ -71,9 +76,8 @@ function Stopwatch({ theme = "dawn", setTheme = () => { } }) {
     }
 
     return () => clearInterval(intervalRef.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRunning, elapsedTime]);
-
-  document.addEventListener("visibilitychange", handleVisibility);
 
   const formatTime = () => {
     const milliseconds = Math.floor((elapsedTime % 1000) / 10);

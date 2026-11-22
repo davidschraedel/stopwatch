@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Stopwatch from "./stopwatch/Stopwatch";
 import Footer from "./Footer";
 import { THEMES } from "./themes";
